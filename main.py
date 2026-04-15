@@ -25,6 +25,15 @@ async def busca_por_id(id: int):
         raise HTTPException(status_code = 404, detail="Not found")
     return tarefa
 
+#deletar task
+@app.delete("/tasks/{id}")
+async def deletar_tarefa(id: int):
+    dados = await ler_arquivo_json()
+    dados["tasks"] = [item for item in dados["tasks"] if item["id"] != id]
+    with open("tasks.json", "w", encoding = "UTF-8") as f:
+        json.dump(dados, f, ensure_ascii= False, indent=4)
+        return {"message": "Tarefa deletada com sucesso!"}
+
 #função para ler um json
 async def ler_arquivo_json():
      with open("tasks.json", encoding = "utf-8") as f:
