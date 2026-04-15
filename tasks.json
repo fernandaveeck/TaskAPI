@@ -1,0 +1,37 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "titulo da minha primeira task",
+            "description": "descrição da minha primeira task",
+            "status": "pendente",
+            "owner": "João",
+            "comments": [
+                "comentário da fernanda",
+                "comentário do eduardo",
+                "comentário do professor fernando"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Construir a API com FastAPI",
+            "description": "Construir o backend utilizando FastAPI na aula do professor Fernando",
+            "status": "pendente",
+            "owner": "Fernanda",
+            "comments": [
+                "Atualizar o status da task"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Implementar o front-end da aplicação",
+            "description": "Implementar o front-end utilizando os recursos disponilizados pelo professor",
+            "status": "pendente",
+            "owner": "Fernanda",
+            "comments": [
+                "Aguardar as instruções do professor",
+                "Em breve será disponibilizado"
+            ]
+        }
+    ]
+}
