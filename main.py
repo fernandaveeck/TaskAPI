@@ -25,6 +25,17 @@ async def busca_por_id(id: int):
         raise HTTPException(status_code = 404, detail="Not found")
     return tarefa
 
+@app.post("/tasks")
+async def create_task(task: Task):
+    tasks = await ler_arquivo_json() # Pega o último id da lista e itera sobre caso não tenha inicial com 0 e depois incrementa 1
+    last_id = tasks ["tasks"][-1]["id"] if tasks["tasks"] else 0
+    new_task = task.model_dump()
+    new_task["id"] = last_id + 1
+    tasks["tasks"].append(new_task)
+    with open("tasks.json", "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=4)
+    return new_task    
+ 
 #deletar task
 @app.delete("/tasks/{id}")
 async def deletar_tarefa(id: int):
