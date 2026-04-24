@@ -20,6 +20,28 @@
                 "Aguardar as instruções do professor",
                 "Em breve será disponibilizado"
             ]
+        },
+        {
+            "title": "Fazer compras",
+            "description": "Comprar leite, pão e ovos",
+            "owner": "João",
+            "status": "Pendente",
+            "comments": [
+                "Comentário 1",
+                "Comentário 2"
+            ],
+            "id": 4
+        },
+        {
+            "title": "Fazer compras",
+            "description": "Comprar leite, pão e ovos",
+            "owner": "João",
+            "status": "Pendente",
+            "comments": [
+                "Comentário 1",
+                "Comentário 2"
+            ],
+            "id": 5
         }
     ]
 }

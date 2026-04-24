@@ -1,8 +1,17 @@
 from fastapi import FastAPI, HTTPException
 import json
+from pydantic import BaseModel, Field
 
 #inicia a aplicação FastApi
 app = FastAPI()
+
+class Task(BaseModel):
+    title: str = Field(..., example="Fazer compras")
+    description: str = Field(..., example="Comprar leite, pão e ovos")
+    owner: str = Field(..., example="João")
+    status: str = Field(..., example="Pendente")
+    comments: list[str] = Field(default_factory=list, example=["Comentário 1", "Comentário 2"])
+
 
 #define um get simples da rota padrão URL ("/")
 @app.get("/") #paramêtro que indica qual verbo será executado
@@ -27,15 +36,17 @@ async def busca_por_id(id: int):
 
 @app.post("/tasks")
 async def create_task(task: Task):
-    tasks = await ler_arquivo_json() # Pega o último id da lista e itera sobre caso não tenha inicial com 0 e depois incrementa 1
-    last_id = tasks ["tasks"][-1]["id"] if tasks["tasks"] else 0
+    tasks = await ler_arquivo_json()
+    #Pega o ultimo id da lista e itera sobre caso não tenha inicial 
+    # com 0 e depois incrementa 1
+    last_id = tasks["tasks"][-1]["id"] if tasks["tasks"] else 0
     new_task = task.model_dump()
     new_task["id"] = last_id + 1
     tasks["tasks"].append(new_task)
     with open("tasks.json", "w", encoding="utf-8") as f:
         json.dump(tasks, f, ensure_ascii=False, indent=4)
-    return new_task    
- 
+    return new_task
+
 #deletar task
 @app.delete("/tasks/{id}")
 async def deletar_tarefa(id: int):
