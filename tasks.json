@@ -22,10 +22,10 @@
             ]
         },
         {
-            "title": "Fazer compras",
-            "description": "Comprar leite, pão e ovos",
-            "owner": "João",
-            "status": "Pendente",
+            "title": "Realizar atividades escola",
+            "description": "Fazer as atividades de redação e matemática",
+            "owner": "Fernanda",
+            "status": "Concluído",
             "comments": [
                 "Comentário 1",
                 "Comentário 2"

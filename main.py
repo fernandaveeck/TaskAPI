@@ -12,7 +12,6 @@ class Task(BaseModel):
     status: str = Field(..., example="Pendente")
     comments: list[str] = Field(default_factory=list, example=["Comentário 1", "Comentário 2"])
 
-
 #define um get simples da rota padrão URL ("/")
 @app.get("/") #paramêtro que indica qual verbo será executado
 async def get_root_message(): #define o nome da função
@@ -46,6 +45,20 @@ async def create_task(task: Task):
     with open("tasks.json", "w", encoding="utf-8") as f:
         json.dump(tasks, f, ensure_ascii=False, indent=4)
     return new_task
+
+@app.put("/tasks/{id}")
+async def update_task(id: int, task: Task):
+    tasks_data = await ler_arquivo_json()
+    tasks_list = tasks_data["tasks"]
+    index = next((i for i, item in enumerate(tasks_list) if item["id"] == id), None)
+    if index is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    updated = task.model_dump()
+    updated["id"] = id
+    tasks_list[index] = updated
+    with open("tasks.json", "w", encoding="utf-8") as f:
+        json.dump(tasks_data, f, ensure_ascii=False, indent=4)
+    return updated
 
 #deletar task
 @app.delete("/tasks/{id}")
