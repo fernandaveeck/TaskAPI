@@ -10,4 +10,4 @@ async def lifespan(_:FastAPI):
         lifespan = lifespan, contact = {
             "name:" "Equipe da disciplina INF8B",
         },)
-    return app
+    return app 
