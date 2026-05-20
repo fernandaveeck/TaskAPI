@@ -66,6 +66,8 @@ class TaskServices:
          if not task:
              raise HTTPException(status_code=404, detail="Task not found")
          task_data = task.model_dump(exclude_unset=True)
+         if "status" in task_data and task_data["status"] is not None:
+            task_data["status"] = task_data["status"].lower()
          task_db.sqlmodel_update(task_data)
          session.add(task_db)
          session.commit()
