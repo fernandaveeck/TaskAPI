@@ -5,7 +5,7 @@ class User(SQLModel, table = True):
     __tablename__ = "app_user"
 
     id: int | None = Field(
-        defult = None,
+        default = None,
         sa_column = Column(Integer, primary_key = True, autoincrement = True),
     )
     username: str = Field(index=True, unique=True)
