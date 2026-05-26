@@ -1,0 +1,36 @@
+from sqlmodel import Session
+
+try:
+    from ..services.task_services import TaskServices
+except ImportError:
+    from services.task_services import TaskServices
+
+try:
+    from ..schemas.task_schemas import TaskCreate, TaskUpdate
+except ImportError:
+    from schemas.task_schemas import TaskCreate, TaskUpdate
+    
+class TaskController:
+    @staticmethod
+    async def get_tasks(session: Session,
+                        owner: str | None = None,
+                        status: str | None = None,
+                        skip: int = 0,
+                        limit: int | None = None):
+        return await TaskServices.get_tasks(session, owner, status, skip, limit)
+
+    @staticmethod
+    async def get_tasks_by_id(session: Session,id: int):
+        return await TaskServices.get_tasks_by_id(session,id)
+
+    @staticmethod
+    async def create_task(session: Session,task: TaskCreate):
+        return await TaskServices.create_task(session ,task)
+
+    @staticmethod
+    async def delete_task(session: Session, id: int):
+        return await TaskServices.delete_task(session, id)
+
+    @staticmethod
+    async def update_task(session: Session, id: int, task: TaskUpdate):
+        return await TaskServices.update_task(session, id, task)
